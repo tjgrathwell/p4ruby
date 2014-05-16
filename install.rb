@@ -43,7 +43,9 @@ class Installer
     puts `perl -pi -e 's/cppflags/CFLAGS/g' Makefile`
     #puts `ruby test.b`
     puts `make install`
-    puts `cp P4.so ../../lib`
+    if RbConfig::CONFIG["target_os"] =~ /linux/i
+      puts `cp ../../P4.so ../../lib`
+    end
     #TODO Deal with known issue wheree we have to ignore -Werror in Makefile
     Dir.chdir(wd)
   end
